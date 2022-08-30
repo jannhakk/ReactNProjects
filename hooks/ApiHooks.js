@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 
-//const url = 'https://raw.githubusercontent.com/mattpe/wbma/master/docs/assets/test.json';
 const apiUrl = 'https://media.mw.metropolia.fi/wbma/';
 
 const useMedia = () => {
@@ -24,6 +23,7 @@ const useMedia = () => {
   useEffect(() => {
     loadMedia();
   }, []);
+  return {mediaArray};
 };
 /*
   let mediaArray = [];
