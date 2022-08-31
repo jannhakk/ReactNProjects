@@ -6,7 +6,7 @@ import {MainContext} from '../contexts/MainContext';
 import {useLogin} from '../hooks/ApiHooks';
 
 const LoginForm = () => {
-  const {isLoggedIn, setIsLoggedIn} = useContext(MainContext);
+  const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
   const {postLogin} = useLogin();
   const {
     control,
@@ -21,6 +21,7 @@ const LoginForm = () => {
       console.log('Button pressed', isLoggedIn);
       const userData = await postLogin(loginCredentials);
       await AsyncStorage.setItem('userToken', userData.token);
+      setUser(userData.user);
       setIsLoggedIn(true);
     } catch (error) {
       console.error('Login - logIn', error);
@@ -53,6 +54,7 @@ const LoginForm = () => {
         control={control}
         rules={{
           required: true,
+          minLength: 3,
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
