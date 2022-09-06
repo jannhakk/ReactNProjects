@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from 'react-hook-form';
-import {Button, Text, TextInput, View} from 'react-native';
+import {View} from 'react-native';
 import {useContext} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import {useLogin} from '../hooks/ApiHooks';
+import {Input, Button, Text} from '@rneui/themed';
 
 const LoginForm = () => {
   const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
@@ -38,17 +39,24 @@ const LoginForm = () => {
           minLength: 3,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             placeholder="Username"
+            autoCapitalize="none"
+            errorMessage={
+              (errors.username?.type === 'required' && (
+                <Text>This is required.</Text>
+              )) ||
+              (errors.username?.type === 'minLength' && (
+                <Text>Min 3 characters.</Text>
+              ))
+            }
           />
         )}
         name="username"
       />
-      {errors.username?.type === 'required' && <Text>This is required.</Text>}
-      {errors.username?.type === 'minLength' && <Text>Min 3 characters.</Text>}
 
       <Controller
         control={control}
@@ -57,17 +65,18 @@ const LoginForm = () => {
           minLength: 3,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             secureTextEntry={true}
             placeholder="Password"
+            errorMessage={errors.password && <Text>This is required.</Text>}
           />
         )}
         name="password"
       />
-      {errors.password && <Text>This is required.</Text>}
+
       <Button title="Sign in!" onPress={handleSubmit((data) => logIn(data))} />
     </View>
   );

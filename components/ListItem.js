@@ -1,62 +1,35 @@
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {mediaUrl} from '../utils/variables';
+import {ListItem as ReListItem, Avatar, Text, Button} from '@rneui/themed';
 
+// Rneui theme
 const ListItem = ({singleMedia, navigation}) => {
-  // console.log(singleMedia);
+  console.log(singleMedia);
   return (
-    <TouchableOpacity
-      style={styles.row}
-      onPress={() => {
-        navigation.navigate('Single', singleMedia);
-      }}
-    >
-      <View style={styles.container}>
-        <Image
-          style={styles.picture}
-          source={{uri: mediaUrl + singleMedia.thumbnails.w160}}
-        />
-        <View style={styles.textArea}>
-          <Text style={styles.title}>{singleMedia.title}</Text>
-          <Text style={styles.description}>{singleMedia.description}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <ReListItem bottomDivider>
+      <Avatar
+        source={{uri: mediaUrl + singleMedia.thumbnails.w160}}
+        size="large"
+      />
+
+      <ReListItem.Content>
+        <ReListItem.Title>
+          <Text>{singleMedia.title}</Text>
+        </ReListItem.Title>
+        <ReListItem.Subtitle>
+          <Text>{singleMedia.description}</Text>
+        </ReListItem.Subtitle>
+      </ReListItem.Content>
+
+      <Button
+        title="View"
+        onPress={() => {
+          navigation.navigate('Single', singleMedia);
+        }}
+      />
+    </ReListItem>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    backgroundColor: '#ccc',
-    marginBottom: 10,
-  },
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'grey',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5,
-    margin: 5,
-  },
-  picture: {
-    width: 100,
-    height: '90%',
-    flex: 1,
-    padding: 2,
-  },
-  title: {
-    color: 'green',
-    fontWeight: 'bold',
-    padding: 5,
-    fontSize: 18,
-  },
-  textArea: {
-    flex: 1,
-    padding: 10,
-  },
-});
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object,

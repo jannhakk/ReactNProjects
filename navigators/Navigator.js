@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useContext} from 'react';
+import {Icon} from '@rneui/themed';
 
 import Home from '../views/Home';
 import Profile from '../views/Profile';
@@ -16,8 +17,18 @@ const Stack = createNativeStackNavigator();
 const TabScreen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{tabBarIcon: ({color}) => <Icon name="home" color={color} />}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({color}) => <Icon name="account-circle" color={color} />,
+        }}
+      />
     </Tab.Navigator>
   );
 };

@@ -1,8 +1,9 @@
 import {useForm, Controller} from 'react-hook-form';
-import {Button, Text, TextInput, View} from 'react-native';
+import {View} from 'react-native';
 import {useContext} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import {useUser} from '../hooks/ApiHooks';
+import {Input, Button, Text} from '@rneui/themed';
 
 const RegisterForm = () => {
   const {isLoggedIn, setIsLoggedIn} = useContext(MainContext);
@@ -36,17 +37,23 @@ const RegisterForm = () => {
           minLength: 3,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             placeholder="Username"
+            errorMessage={
+              (errors.username?.type === 'required' && (
+                <Text>This is required.</Text>
+              )) ||
+              (errors.username?.type === 'minLength' && (
+                <Text>Min 3 characters.</Text>
+              ))
+            }
           />
         )}
         name="username"
       />
-      {errors.username?.type === 'required' && <Text>This is required.</Text>}
-      {errors.username?.type === 'minLength' && <Text>Min 3 characters.</Text>}
 
       <Controller
         control={control}
@@ -54,17 +61,17 @@ const RegisterForm = () => {
           required: true,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             secureTextEntry={true}
             placeholder="Email"
+            errorMessage={errors.email && <Text>This is required.</Text>}
           />
         )}
         name="email"
       />
-      {errors.email && <Text>This is required.</Text>}
 
       <Controller
         control={control}
@@ -73,17 +80,17 @@ const RegisterForm = () => {
           minLength: 3,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             secureTextEntry={true}
             placeholder="Password"
+            errorMessage={errors.password && <Text>This is required.</Text>}
           />
         )}
         name="password"
       />
-      {errors.password && <Text>This is required.</Text>}
 
       <Controller
         control={control}
@@ -92,7 +99,7 @@ const RegisterForm = () => {
           minLength: 3,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
