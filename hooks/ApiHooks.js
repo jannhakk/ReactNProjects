@@ -75,7 +75,15 @@ const useUser = () => {
   return {getUserByToken, postUser};
 };
 
-export {useMedia, useUser, useLogin};
+const useTag = () => {
+  const getFilesByTag = async (tag) => {
+    return await doFetch(apiUrl + 'tags/' + tag);
+  };
+
+  return {getFilesByTag};
+};
+
+export {useMedia, useUser, useLogin, useTag};
 
 /*
   let mediaArray = [];
