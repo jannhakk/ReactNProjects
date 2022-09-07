@@ -1,10 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from 'react-hook-form';
-import {View} from 'react-native';
 import {useContext} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import {useLogin} from '../hooks/ApiHooks';
-import {Input, Button, Text} from '@rneui/themed';
+import {Input, Button, Text, Card} from '@rneui/themed';
 
 const LoginForm = () => {
   const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
@@ -30,8 +29,8 @@ const LoginForm = () => {
   };
 
   return (
-    <View>
-      <Text>Login Form</Text>
+    <Card>
+      <Card.Title>Login Form</Card.Title>
       <Controller
         control={control}
         rules={{
@@ -78,7 +77,7 @@ const LoginForm = () => {
       />
 
       <Button title="Sign in!" onPress={handleSubmit((data) => logIn(data))} />
-    </View>
+    </Card>
   );
 };
 
