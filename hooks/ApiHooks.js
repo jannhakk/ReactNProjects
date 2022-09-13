@@ -81,7 +81,22 @@ const useUser = () => {
     }
   };
 
-  return {checkUsername, getUserByToken, postUser};
+  const updateUser = async (userData) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    };
+    try {
+      return await doFetch(apiUrl + 'users', options);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  return {checkUsername, getUserByToken, postUser, updateUser};
 };
 
 const useTag = () => {
