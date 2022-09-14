@@ -142,7 +142,6 @@ const RegisterForm = () => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            secureTextEntry={true}
             placeholder="Full name"
           />
         )}

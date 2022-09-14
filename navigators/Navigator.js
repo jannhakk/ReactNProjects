@@ -7,6 +7,7 @@ import {Icon} from '@rneui/themed';
 
 import Home from '../views/Home';
 import Profile from '../views/Profile';
+import Upload from '../views/Upload';
 import Single from '../views/Single';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
@@ -27,6 +28,13 @@ const TabScreen = () => {
         component={Profile}
         options={{
           tabBarIcon: ({color}) => <Icon name="account-circle" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Upload"
+        component={Upload}
+        options={{
+          tabBarIcon: ({color}) => <Icon name="cloud-upload" color={color} />,
         }}
       />
     </Tab.Navigator>

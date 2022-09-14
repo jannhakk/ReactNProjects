@@ -15,9 +15,9 @@ const Login = ({navigation}) => {
   const [showRegForm, setShowRegForm] = useState(false);
 
   const checkToken = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-    console.log('token', userToken);
     try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      console.log('token', userToken);
       if (userToken != null) {
         const userData = await getUserByToken(userToken);
         setIsLoggedIn(true);
@@ -34,12 +34,6 @@ const Login = ({navigation}) => {
   }, []);
 
   return (
-    /*
-    <View style={styles.container}>
-      <LoginForm />
-      <RegisterForm />
-    </View>
-    */
     <View>
       {showRegForm ? <RegisterForm /> : <LoginForm />}
       <Button
@@ -51,17 +45,6 @@ const Login = ({navigation}) => {
     </View>
   );
 };
-
-/*
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-*/
 
 Login.propTypes = {
   navigation: PropTypes.object,
