@@ -4,7 +4,6 @@ import {apiUrl, applicationTag} from '../utils/variables';
 
 const useMedia = (update) => {
   const [mediaArray, setMediaArray] = useState([]);
-  // TODO: only images with WH3 tag
   const loadMedia = async () => {
     try {
       const json = await doFetch(apiUrl + 'tags/' + applicationTag);
@@ -95,8 +94,27 @@ const useUser = () => {
       throw new Error(error.message);
     }
   };
+  // eslint-disable-next-line camelcase
+  const getUserById = async (user_id) => {
+    const token1 =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMTM2LCJ1c2VybmFtZSI6Ikphbm5lIiwiZW1haWwiOiJqYW5uaGFra0BtZXRyb3BvbGlhLmZpIiwiZnVsbF9uYW1lIjoiSmFubmUgSGFra2FyYWluZW4iLCJpc19hZG1pbiI6bnVsbCwidGltZV9jcmVhdGVkIjoiMjAyMi0wOC0yNFQwOTozNzowMy4wMDBaIiwiaWF0IjoxNjYzNjc3NDgxLCJleHAiOjE2NjM3NjM4ODF9.6vEWokeoHx4vUH8lwe62BWXCCK9TQRjAxrjmCP6r-aY';
+    try {
+      const options = {
+        method: 'GET',
+        headers: {'x-access-token': token1},
+      };
+      const acquiredUserData = await doFetch(
+        // eslint-disable-next-line camelcase
+        apiUrl + 'users/' + user_id,
+        options
+      );
+      return acquiredUserData;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 
-  return {checkUsername, getUserByToken, postUser};
+  return {checkUsername, getUserByToken, postUser, getUserById};
 };
 
 const useTag = () => {
