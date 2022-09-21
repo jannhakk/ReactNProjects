@@ -4,8 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useTag} from '../hooks/ApiHooks';
 import {mediaUrl} from '../utils/variables';
 import {Avatar, Button, Card, Icon, ListItem, Text} from '@rneui/themed';
+import PropTypes from 'prop-types';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const {isLoggedIn, setIsLoggedIn, user} = useContext(MainContext);
   const [avatar, setAvatar] = useState('https://placekitten.com/640');
   const {getFilesByTag} = useTag();
@@ -55,8 +56,18 @@ const Profile = () => {
       </ListItem>
 
       <Button title="Logout" onPress={logOut} />
+      <Button
+        title="MyFiles"
+        onPress={() => {
+          navigation.navigate('MyFiles');
+        }}
+      />
     </Card>
   );
+};
+
+Profile.propTypes = {
+  navigation: PropTypes.object,
 };
 
 export default Profile;

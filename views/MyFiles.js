@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 import List from '../components/List';
 
-const Home = ({navigation}) => {
+const MyFiles = (props) => {
+  const {navigation} = props;
   return (
     <View style={styles.droidSafeArea}>
-      <List navigation={navigation} />
+      <List navigation={navigation} myFilesOnly={true} />
     </View>
   );
 };
@@ -19,8 +20,8 @@ const styles = StyleSheet.create({
   },
 });
 
-Home.propTypes = {
+MyFiles.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default Home;
+export default MyFiles;

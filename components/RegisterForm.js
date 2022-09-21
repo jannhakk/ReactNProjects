@@ -15,6 +15,8 @@ const RegisterForm = () => {
   });
 
   const register = async (userData) => {
+    delete userData.confirmPassword;
+
     console.log('register userData', userData);
     try {
       const result = await postUser(userData);

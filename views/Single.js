@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {mediaUrl, apiUrl} from '../utils/variables';
-import {Avatar, Card, ListItem, Text, Icon} from '@rneui/themed';
+import {mediaUrl} from '../utils/variables';
+import {Avatar, Card, ListItem, Text} from '@rneui/themed';
 import {Video} from 'expo-av';
 import {ActivityIndicator, ScrollView} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {useTag, useUser} from '../hooks/ApiHooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Single = ({route}) => {
   console.log('Single route', route);
@@ -30,7 +31,8 @@ const Single = ({route}) => {
 
   const fetchUserName = async () => {
     try {
-      const usernameArray = await getUserById(user_id);
+      const token = await AsyncStorage.getItem('userToken');
+      const usernameArray = await getUserById(token, user_id);
       // const userIdName = usernameArray.pop();
       setUserName(usernameArray.username);
       console.log(usernameArray.username);

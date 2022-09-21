@@ -11,6 +11,8 @@ import Upload from '../views/Upload';
 import Single from '../views/Single';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
+import MyFiles from '../views/MyFiles';
+import ModifyFile from '../views/ModifyFile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -53,9 +55,15 @@ const StackScreen = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="Single" component={Single} />
+          <Stack.Screen name="MyFiles" component={MyFiles} />
+          <Stack.Screen name="ModifyFile" component={ModifyFile} />
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{title: 'MyApp'}}
+        />
       )}
     </Stack.Navigator>
   );
